@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const { verifyAdmin,verifyUser } = require("../controllers/auth.controller")
+
 const {
   getAllPesanLes,
   getPesanLesByID,
@@ -10,11 +12,11 @@ const {
   deleteAllPesanLes,
 } = require("../controllers/pesanLes.controller");
 
-router.get("/", getAllPesanLes);
-router.get("/:id", getPesanLesByID);
-router.post("/", addPesanLes);
-router.delete("/:id", deletePesanLesByID);
-router.put("/:id", updatePesanLesByID);
-router.delete("/all/:id",deleteAllPesanLes)
+router.get("/",verifyUser, getAllPesanLes);
+router.get("/:id",verifyUser, getPesanLesByID);
+router.post("/",verifyUser, addPesanLes);
+router.delete("/:id",verifyAdmin, deletePesanLesByID);
+router.put("/:id",verifyUser, updatePesanLesByID);
+router.delete("/all/:id",verifyAdmin,deleteAllPesanLes)
 
 module.exports = router;

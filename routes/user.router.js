@@ -7,7 +7,7 @@ const {
   addUser,
   deleteUserByID,
   updateUserByID,
-  
+  login,
   
 } = require("../controllers/user.controller");
 
