@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const User = require("../models/user")
 const jwt = require("jsonwebtoken");
-const KEY = "yessir";
+const loginKEY = "anotherone"
 
 module.exports = {
   getAllUser: async (req, res) => {
@@ -45,6 +45,28 @@ module.exports = {
   updateUserByID: (req, res) => {
 
   },
+  login: async (req,res) =>{
+    const data = req.body
+    const user = await User.findOne({email : data.email})
+    const cekPass = bcrypt.compareSync(data.password, user.password)
 
+    const token = jwt.sign(
+      {
+        id: user.id,
+      },
+      loginKEY ,{expiresIn : '60m'}
+    );
+
+    if(cekPass){
+      res.json({
+        message: "Login Succesful",
+        token
+      })
+    } else {
+      res.json({
+        message: "Something wrong with your brain"
+      })
+    }
+  },
   
 }

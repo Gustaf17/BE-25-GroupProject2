@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const { verifyAdmin,verifyUser } = require("../controllers/auth.controller")
+
 const {
   getAllPengajar,
   getPengajarByID,

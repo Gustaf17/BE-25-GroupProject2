@@ -1,17 +1,11 @@
 const jwt = require("jsonwebtoken");
-const bcrypt = require('bcrypt')
-const User = require("../models/user")
-
-const { loginValidation } = require('../config/validation')
-const loginKEY = "yessir"
-
-module.exports = {
-    author: (req,res) =>{
+    const verifyUser = (req,res) =>{
+      const loginKEY = "anotherone"
       try {
         const auth = req.headers.authorization
         const token= auth.split(' ')[1]
        
-       const isTOkenValid = jwt.verify(token, "yessir")
+       const isTOkenValid = jwt.verify(token, loginKEY)
        
        
          res.json({
@@ -21,31 +15,33 @@ module.exports = {
         res.status(500).json({
           message : "Internal Server Error"
         })
-      }  
-        
-      },
+      }     
+      }
       
-      login: async (req,res) =>{
-        const data = req.body
-        const user = await User.findOne({email : data.email})
-        const cekPass = bcrypt.compareSync(data.password, user.password)
-    
-        const token = jwt.sign(
-          {
-            id: user.id,
-          },
-          loginKEY ,{expiresIn : '10m'}
-        );
-    
-        if(cekPass){
-          res.json({
-            message: "Login Succesful",
-            token
-          })
-        } else {
-          res.json({
-            message: "Something wrong with your brain"
-          })
+      const verifyAdmin = (req,res,next) =>{
+        const adminKEY = "yessir"
+
+        const token = req.header('authAdmin')
+        if(!token) return res.status(400).json({
+            status: res.statusCode,
+            message: 'Access Denied !'
+        })
+        
+        try {
+          const verified = jwt.verify(token, adminKEY)        
+          req.user = verified
+          next() 
+         
+        } catch (error) {
+          res.status(400).json({
+            status: res.statusCode,
+            message: 'Invalid Token !'
+        })
         }
-      },
-}
+      }
+
+      module.exports.verifyUser = verifyUser
+      module.exports.verifyAdmin = verifyAdmin
+
+      
+
