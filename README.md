@@ -47,6 +47,20 @@
 
 ## How to use
 
+- clone repo ini dengan command :
+```
+git clone <https_url_tothis_repo>
+```
+- pindah ke direktori ini
+- install semua dependencies dengan command :
+```
+npm i
+```
+- jalankan command berikut untuk menjalankan :
+```
+node app
+```
+
 ## Lampiran
 - Business Requirements Document : https://whimsical.com/business-requirements-document-4Vx6CdS1nqEZF7ERx4weRY
   
