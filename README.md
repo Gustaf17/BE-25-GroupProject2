@@ -27,9 +27,6 @@
 - deletePesanLesByID : menggunakan method DELETE, method ini akan menghapus pesanan lesberdasarkan ID
 - updatePesanLesByID : menggunakan method PUT, method ini akan mengupdate pesanan les berdasarkan ID
 
-> /auth : endpoint ini memiliki beberapa method, antara lain :
-- 
-
 > /pengajar : endpoint ini memiliki beberapa method, antara lain :
 - getAllPengajar : menggunakan method GET, method ini akan mendapatkan data semua pengajar dalam database
 - getPengajarByID : menggunakan method GET, method ini akan mendapatkan data pengajar berdasarkan ID yg di-request oleh user
